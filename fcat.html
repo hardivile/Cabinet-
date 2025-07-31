@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Formulaire Multi-Étapes</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+  <style>
+    :root {
+      --primary-color: #0d6efd;
+      --gold-color: #ffda44;
+      --gold-darker: #f4c430;
+    }
+
+    html, body {
+      height: 100%;
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: url('https://images.unsplash.com/photo-1526403225-7b43c8b6c2b2?auto=format&fit=crop&w=1350&q=80') no-repeat center center fixed;
+      background-size: cover;
+    }
+
+    .form-container {
+      max-width: 600px;
+      margin: auto;
+      padding: 2rem;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 15px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+      color: #fff;
+    }
+
+    .step-indicators {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+    }
+
+    .step-indicator {
+      text-align: center;
+      flex: 1;
+      color: #ccc;
+    }
+
+    .step-indicator i {
+      font-size: 1.5rem;
+      display: block;
+      margin-bottom: 0.3rem;
+    }
+
+    .step-indicator.active {
+      color: var(--gold-color);
+    }
+
+    .step-indicator.completed {
+      color: var(--gold-darker);
+    }
+
+    .step-content {
+      display: none;
+    }
+
+    .step-content.active {
+      display: block;
+      animation: fadeIn 0.4s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .progress-bar {
+      height: 5px;
+      background-color: var(--gold-color);
+      width: 0;
+      transition: width 0.3s ease;
+    }
+
+    button {
+      min-width: 100px;
+    }
+
+    label {
+      color: var(--gold-color);
+    }
+
+    input.form-control {
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      border: 1px solid #ccc;
+    }
+
+    input.form-control::placeholder {
+      color: #ddd;
+    }
+  </style>
+</head>
+<body>
+  <div class="d-flex align-items-center justify-content-center vh-100">
+    <div class="form-container">
+      <form id="multiStepForm">
+        <!-- Étapes -->
+        <div class="step-indicators mb-3">
+          <div class="step-indicator active"><i class="fas fa-user"></i><small>Identité</small></div>
+          <div class="step-indicator"><i class="fas fa-file-alt"></i><small>Détails</small></div>
+          <div class="step-indicator"><i class="fas fa-paper-plane"></i><small>Soumettre</small></div>
+        </div>
+
+        <div class="progress mb-4">
+          <div class="progress-bar" id="progressBar"></div>
+        </div>
+
+        <!-- Étape 1 -->
+        <div class="step-content active">
+          <div class="mb-3">
+            <label for="nom" class="form-label">Nom</label>
+            <input type="text" class="form-control" id="nom" placeholder="Entrez votre nom">
+          </div>
+          <div class="mb-3">
+            <label for="email" class="form-label">Adresse email</label>
+            <input type="email" class="form-control" id="email" placeholder="exemple@mail.com">
+          </div>
+        </div>
+
+        <!-- Étape 2 -->
+        <div class="step-content">
+          <div class="mb-3">
+            <label for="type" class="form-label">Type de courrier</label>
+            <input type="text" class="form-control" id="type" placeholder="Ex : Attestation">
+          </div>
+          <div class="mb-3">
+            <label for="objet" class="form-label">Objet</label>
+            <input type="text" class="form-control" id="objet" placeholder="Objet du courrier">
+          </div>
+        </div>
+
+        <!-- Étape 3 -->
+        <div class="step-content">
+          <p>Vérifiez vos informations avant de soumettre.</p>
+        </div>
+
+        <!-- Navigation -->
+        <div class="d-flex justify-content-between mt-4">
+          <button type="button" class="btn btn-secondary" id="prevBtn" style="display: none;">Précédent</button>
+          <button type="button" class="btn btn-warning text-dark" id="nextBtn">Suivant</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- JS -->
+  <script>
+    let currentStep = 0;
+    const steps = document.querySelectorAll('.step-content');
+    const nextBtn = document.getElementById('nextBtn');
+    const prevBtn = document.getElementById('prevBtn');
+    const progressBar = document.getElementById('progressBar');
+    const stepIndicators = document.querySelectorAll('.step-indicator');
+
+    const originalIcons = Array.from(stepIndicators).map(i => i.querySelector('i').className);
+
+    function showStep(n) {
+      steps.forEach(step => step.classList.remove('active'));
+      steps[n].classList.add('active');
+
+      stepIndicators.forEach((indicator, index) => {
+        indicator.classList.remove('active', 'completed');
+        const icon = indicator.querySelector('i');
+        if (index < n) {
+          indicator.classList.add('completed');
+          icon.className = 'fas fa-check-circle';
+        } else if (index === n) {
+          indicator.classList.add('active');
+          icon.className = originalIcons[index];
+        } else {
+          icon.className = originalIcons[index];
+        }
+      });
+
+      const progress = ((n + 1) / steps.length) * 100;
+      progressBar.style.width = progress + '%';
+
+      prevBtn.style.display = n === 0 ? 'none' : 'inline-block';
+      nextBtn.textContent = n === steps.length - 1 ? 'Soumettre' : 'Suivant';
+    }
+
+    nextBtn.addEventListener('click', () => {
+      if (currentStep < steps.length - 1) {
+        currentStep++;
+        showStep(currentStep);
+      } else {
+        soumettreFormulaire();
+      }
+    });
+
+    prevBtn.addEventListener('click', () => {
+      if (currentStep > 0) {
+        currentStep--;
+        showStep(currentStep);
+      }
+    });
+
+    function soumettreFormulaire() {
+      const data = {
+        nom: document.getElementById('nom').value.trim(),
+        email: document.getElementById('email').value.trim(),
+        type: document.getElementById('type').value.trim(),
+        objet: document.getElementById('objet').value.trim(),
+        date: new Date().toLocaleString()
+      };
+
+      // Validation simple
+      if (!data.nom || !data.email || !data.type || !data.objet) {
+        alert("Veuillez remplir tous les champs.");
+        return;
+      }
+
+      // Récupération existant
+      const courriers = JSON.parse(localStorage.getItem('courriers') || '[]');
+      courriers.push(data);
+      localStorage.setItem('courriers', JSON.stringify(courriers));
+
+      alert("Courrier enregistré !");
+      window.location.reload(); // ou rediriger vers tableau
+    }
+
+    showStep(currentStep);
+  </script>
+</body>
+</html>

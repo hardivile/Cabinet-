@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Archivage Courrier</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background: url("https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=1600&q=80")
+          no-repeat center center fixed;
+        background-size: cover;
+        backdrop-filter: blur(4px);
+        font-family: "Segoe UI", sans-serif;
+      }
+
+      .backdrop-blur {
+        background: rgba(0, 0, 0, 0.5);
+        border-radius: 15px;
+        backdrop-filter: blur(10px);
+      }
+
+      .navbar {
+        background-color: transparent !important;
+        box-shadow: none;
+        transition: background-color 0.3s ease;
+      }
+
+      .navbar.scrolled {
+        background-color: rgba(0, 0, 0, 0.85) !important;
+      }
+
+      .navbar .nav-link,
+      .navbar .navbar-brand {
+        color: white !important;
+        transition: color 0.3s ease;
+      }
+
+      .navbar .nav-link:hover,
+      .navbar .nav-link.active,
+      .navbar .navbar-brand:hover {
+        color: #f8d47c !important;
+      }
+
+      .form-label,
+      .form-control,
+      .form-select,
+      textarea {
+        color: #fff;
+      }
+
+      .form-control,
+      .form-select,
+      textarea {
+        background-color: rgba(255, 255, 255, 0.1);
+        border: 1px solid #ccc;
+      }
+
+      .form-control::placeholder,
+      textarea::placeholder {
+        color: #ddd;
+      }
+
+      .btn-outline-light:hover {
+        background-color: #f8d47c;
+        color: black;
+        border-color: #f8d47c;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 🌐 Navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="#"
+          ><i class="fas fa-gavel me-2"></i>XConsult</a
+        >
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon text-light"></span>
+        </button>
+        <div
+          class="collapse navbar-collapse justify-content-end"
+          id="navbarNav"
+        >
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link active" href="#">Accueil</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Liste des courriers</a>
+            </li>
+            <li class="nav-item"><a class="nav-link" href="#">Dashboard</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">Archivage</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- 📄 Formulaire Archivage -->
+    <div
+      class="container d-flex align-items-center justify-content-center"
+      style="min-height: 100vh"
+    >
+      <div
+        class="card bg-transparent border-light shadow-lg backdrop-blur p-4 w-100"
+        style="max-width: 700px"
+      >
+        <div class="card-body">
+          <h4 class="text-center mb-4 text-light">
+            <i class="fas fa-archive me-2"></i>Archivage d'un courrier
+          </h4>
+
+          <form>
+            <div class="mb-3">
+              <label for="refDossier" class="form-label"
+                >Référence Dossier</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="refDossier"
+                placeholder="Ex: DOS-2024-001"
+              />
+            </div>
+
+            <div class="mb-3">
+              <label for="typeCourrier" class="form-label"
+                >Type de Courrier</label
+              >
+              <select class="form-select" id="typeCourrier">
+                <option selected disabled>Choisir un type</option>
+                <option value="Bordereau ENR">Bordereau ENR</option>
+                <option value="Lettre de Constitution">
+                  Lettre de Constitution
+                </option>
+                <option value="Attestation d’adjudication">
+                  Attestation d’adjudication
+                </option>
+              </select>
+            </div>
+
+            <div class="mb-3">
+              <label for="refCourrier" class="form-label"
+                >Référence Courrier</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="refCourrier"
+                placeholder="Ex: ENR-2024-0152"
+              />
+            </div>
+
+            <div class="mb-3">
+              <label for="dateDepot" class="form-label">Date de dépôt</label>
+              <input type="date" class="form-control" id="dateDepot" />
+            </div>
+
+            <div class="mb-3">
+              <label for="dateArchivage" class="form-label"
+                >Date d’archivage</label
+              >
+              <input type="date" class="form-control" id="dateArchivage" />
+            </div>
+
+            <div class="mb-3">
+              <label for="emplacement" class="form-label"
+                >Emplacement / Répertoire</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="emplacement"
+                placeholder="Ex: Armoire B - Tiroir 2"
+              />
+            </div>
+
+            <div class="mb-3">
+              <label for="observations" class="form-label">Observations</label>
+              <textarea
+                class="form-control"
+                id="observations"
+                rows="3"
+                placeholder="Ajouter des remarques si nécessaire..."
+              ></textarea>
+            </div>
+
+            <div class="text-center">
+              <button type="submit" class="btn btn-outline-light">
+                <i class="fas fa-folder-plus me-2"></i>Archiver le courrier
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Scroll effect for navbar
+      window.addEventListener("scroll", function () {
+        const navbar = document.querySelector(".navbar");
+        navbar.classList.toggle("scrolled", window.scrollY > 50);
+      });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

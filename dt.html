@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dashboard - Cabinet Juridique</title>
+
+  <!-- Bootstrap & Chart.js -->
+  <link href="css/bootstrap.min.css" rel="stylesheet" />
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <!-- Ton style personnalisé -->
+  <link rel="stylesheet" href="css/acc.css">
+</head>
+
+<body class="p-3">
+
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top  px-4">
+    <a class="navbar-brand text-warning fw-bold" href="./index.html"><i class="fas fa-scale-balanced me-2"></i>Cabinet ASSOGBA</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse  " id="navbarContent">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link active" href="#"><i class="fas fa-chart-line me-1"></i>Dashboard</a></li>
+        <li class="nav-item"><a class="nav-link" href="#"
+          
+                           data-bs-toggle="modal"
+                data-bs-target="#ajoutcourrierModal"
+
+          ><i class="fas fa-plus-circle me-1"></i>Ajouter un courrier</a></li>
+        <li class="nav-item"><a class="nav-link" href="#"
+                        data-bs-toggle="modal"
+                data-bs-target="#listcourrierModal"
+          ><i class="fas fa-list me-1"></i>Liste des courriers</a></li>
+        <!-- <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-search me-1"></i>Recherche</a></li> -->
+        <!-- <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-user-circle me-1"></i>Profil</a></li> -->
+        <li class="nav-item"><a class="nav-link text-danger" href="./index.html"><i class="fas fa-sign-out-alt me-1"></i>Déconnexion</a></li>
+      </ul>
+    </div>
+  </nav>
+
+
+
+
+
+      <!-- modal1 -->
+    <div
+      class="modal fade"
+      id="ajoutcourrierModal"
+      tabindex="-1"
+      aria-labelledby="confirmajoutercourrierLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title text-dark" id="confirmajoutercourrierLabel">
+              Ajouter courrier:
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <a href="./fca.html" class="btn btn-primary w-100 mb-2">Entrant</a>
+            <a href="./fcd.html" class="btn btn-secondary w-100">Sortant</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- modal2 -->
+    <div
+      class="modal fade"
+      id="listcourrierModal"
+      tabindex="-1"
+      aria-labelledby="confirmlistcourrierLabel"
+      aria-hidden="true"
+    >
+
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title text-dark" id="confirmajoutercourrierLabel">
+             Voir les  courrier:
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <a href="./lce.html" class="btn btn-primary w-100 mb-2">Entrant</a>
+            <a href="./lcs.html" class="btn btn-secondary w-100">Sortant</a>
+          </div>
+        </div>
+      </div>
+
+
+</div>
+  <!-- DASHBOARD -->
+  <div class="container my-5">
+    <div class="glass-box p-4">
+      <h2 class="text-center text-light mb-5"><i class="fas fa-tachometer-alt me-2"></i>Tableau de bord</h2>
+
+      <!-- Statistiques -->
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="card text-center shadow border-0">
+            <div class="card-body">
+              <h5 class="card-title text-secondary">Courriers enregistrés</h5>
+              <p class="display-6 text-primary fw-bold">128</p>
+              <i class="fa-solid fa-envelope-circle-check fa-2x text-primary"></i>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="card text-center shadow border-0">
+            <div class="card-body">
+              <h5 class="card-title text-secondary">Traités</h5>
+              <p class="display-6 text-success fw-bold">87</p>
+              <i class="fa-solid fa-circle-check fa-2x text-success"></i>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="card text-center shadow border-0">
+            <div class="card-body">
+              <h5 class="card-title text-secondary">En cours</h5>
+              <p class="display-6 text-warning fw-bold">41</p>
+              <i class="fa-solid fa-hourglass-half fa-2x text-warning"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chart -->
+      <div class="row mt-5">
+        <div class="col-md-8 mx-auto">
+          <canvas id="statusChart"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="text-center text-light py-3">
+    <small>&copy; 2025 Cabinet ASSOGBA — Tous droits réservés</small>
+  </footer>
+
+  <!-- SCRIPT CHART -->
+  <script>
+    const ctx = document.getElementById('statusChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'doughnut',
+      data: {
+        labels: ['Traités', 'En cours', 'Non traité'],
+        datasets: [{
+          data: [87, 30, 11],
+          backgroundColor: ['#198754', '#ffc107', '#dc3545'],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'bottom',
+            labels: {
+              color: '#fff',
+              font: {
+                size: 14
+              }
+            }
+          }
+        }
+      }
+    });
+  </script>
+
+  <script>
+  window.addEventListener("scroll", function () {
+    const navbar = document.querySelector(".navbar");
+    if (window.scrollY > 50) {
+      navbar.classList.add("scrolled");
+    } else {
+      navbar.classList.remove("scrolled");
+    }
+  });
+</script>
+
+
+</body>
+</html>

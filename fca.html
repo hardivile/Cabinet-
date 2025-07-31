@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courrier Arrivé - Bootstrap 5</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #0d6efd;
+            --secondary-color: #6c757d;
+            --success-color: #198754;
+            --danger-color: #dc3545;
+            --warning-color: #ffc107;
+            --info-color: #0dcaf0;
+            --gold-color: #ffda44;
+            --gold-darker: #f4c430;
+        }
+
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding-top: 56px;
+            color: white;
+            font-family: 'Roboto', sans-serif;
+            background-image: url('css/img/mateau.webp');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: -1;
+        }
+
+        .navbar {
+            background-color: transparent !important;
+            box-shadow: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            background-color: rgba(0, 0, 0, 0.85) !important;
+        }
+
+        .navbar .nav-link,
+        .navbar .navbar-brand {
+            color: white;
+            transition: color 0.3s ease;
+        }
+
+        .navbar .nav-link:hover,
+        .navbar .nav-link.active,
+        .navbar .navbar-brand:hover {
+            color: #ddd;
+        }
+
+        .main-container {
+            min-height: calc(100vh - 56px);
+            display: flex;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+.form-container {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  box-shadow: 0 0 30px rgba(255, 215, 0, 0.3), 0 20px 40px rgba(0, 0, 0, 0.4);
+  border: 2px solid rgba(255, 218, 68, 0.3);
+  overflow: hidden;
+  max-width: 600px;
+  width: 100%;
+}
+
+.form-header,
+.form-content,
+.progress-section,
+.navigation-buttons {
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+  text-align: center;
+}
+
+        .form-header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.1) 50%, transparent 70%);
+            animation: shimmer 15s infinite;
+        }
+
+        .form-control::placeholder,
+textarea::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+        @keyframes shimmer {
+            0%, 100% { transform: translateX(-100%); }
+            50% { transform: translateX(100%); }
+        }
+
+        .form-header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 1;
+        }
+
+        .form-header p {
+            font-size: 1.1rem;
+            opacity: 0.8;
+            margin-bottom: 0;
+            color: #555;
+            position: relative;
+            z-index: 1;
+        }
+
+        .progress-section {
+            padding: 2rem;
+            background: rgba(255, 218, 68, 0.1);
+            border-bottom: 2px solid rgba(255, 218, 68, 0.3);
+            box-shadow: 0 2px 10px rgba(255, 218, 68, 0.2);
+        }
+
+        .custom-progress {
+            height: 10px;
+            background: #e9ecef;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .custom-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--gold-color), var(--gold-darker));
+            border-radius: 10px;
+            transition: width 0.3s ease;
+            width: 33.33%;
+            box-shadow: 0 0 10px rgba(255, 218, 68, 0.6);
+            position: relative;
+        }
+
+        .custom-progress-bar::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: progressShine 2s infinite;
+        }
+
+        @keyframes progressShine {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .step-indicators {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .step-indicator {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            flex: 1;
+            position: relative;
+ 
+        }
+
+        .step-indicator:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            top: 20px;
+            right: -50%;
+            width: 100%;
+            height: 2px;
+            background: #dee2e6;
+            z-index: 1;
+        }
+
+        .step-indicator.active:not(:last-child)::after,
+        .step-indicator.completed:not(:last-child)::after {
+            background: linear-gradient(90deg, var(--gold-color), var(--gold-darker));
+        }
+
+        .step-icon {
+            width: 45px;
+            height: 45px;
+             
+            border-radius: 50%;
+            background: #dee2e6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 2;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .step-indicator.active .step-icon {
+            background: linear-gradient(135deg, var(--gold-color), var(--gold-darker));
+            color: #333;
+            transform: scale(1.1);
+            box-shadow: 0 4px 12px rgba(255, 218, 68, 0.5);
+            
+        }
+
+        .step-indicator.completed .step-icon {
+            background: var(--success-color);
+            color: white;
+            box-shadow: 0 4px 12px rgba(25, 135, 84, 0.4);
+        }
+
+        .step-text {
+            font-size: 0.9rem;
+            color: var(--secondary-color);
+            font-weight: 500;
+        }
+
+        .step-indicator.active .step-text {
+            color: var(--gold-darker);
+            font-weight: 600;
+        }
+
+        .form-content {
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.98);
+        }
+
+        .step-content {
+            display: none;
+        }
+
+        .step-content.active {
+            display: block;
+            animation: fadeInUp 0.5s ease;
+        }
+
+        @keyframes fadeInUp {
+            from { 
+                opacity: 0; 
+                transform: translateY(30px);
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0);
+            }
+        }
+
+        .step-title {
+            color: var(--gold-darker);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--gold-color);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-control, .form-select {
+            border-radius: 12px;
+            border: 2px solid #e9ecef;
+            padding: 0.75rem 1rem;
+            transition: all 0.3s ease;
+            /* background: rgba(255, 255, 255, 0.9); */
+            backdrop-filter: blur(5px);
+            
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: var(--gold-color);
+            box-shadow: 0 0 0 0.2rem rgba(255, 218, 68, 0.25);
+            background: white;
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: #212529;
+            margin-bottom: 0.5rem;
+        }
+
+        .input-group-text {
+            background: linear-gradient(135deg, var(--gold-color), var(--gold-darker));
+            color: #333;
+            border: 2px solid var(--gold-color);
+            border-radius: 0 12px 12px 0;
+            font-weight: 600;
+        }
+
+        .status-options {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .status-option {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .status-radio {
+            display: none;
+        }
+
+        .status-label {
+            display: block;
+            padding: 1.2rem;
+            border: 2px solid #dee2e6;
+            border-radius: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(5px);
+        }
+
+        .status-label:hover {
+            border-color: var(--gold-color);
+            background: rgba(255, 218, 68, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .status-radio:checked + .status-label {
+            border-color: var(--gold-color);
+            background: rgba(255, 218, 68, 0.2);
+            color: var(--gold-darker);
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(255, 218, 68, 0.3);
+        }
+
+        .navigation-buttons {
+            padding: 1.5rem 2rem;
+            background: rgba(248, 249, 250, 0.9);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            border-top: 2px solid rgba(255, 218, 68, 0.3);
+        }
+
+        .btn-nav {
+            padding: 0.75rem 2rem;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-prev {
+            background: linear-gradient(135deg, var(--secondary-color), #5a6268);
+            color: white;
+        }
+
+        .btn-prev:hover {
+            background: linear-gradient(135deg, #5a6268, #495057);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(108, 117, 125, 0.4);
+        }
+
+        .btn-next {
+            background: linear-gradient(135deg, var(--gold-color), var(--gold-darker));
+            color: #333;
+        }
+
+        .btn-next:hover {
+            background: linear-gradient(135deg, var(--gold-darker), #e6c200);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(255, 218, 68, 0.5);
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, var(--success-color), #146c43);
+            color: white;
+        }
+
+        .btn-submit:hover {
+            background: linear-gradient(135deg, #146c43, #0d5132);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(25, 135, 84, 0.4);
+        }
+
+        .success-message {
+            display: none;
+            text-align: center;
+            padding: 3rem;
+            animation: bounceIn 0.8s ease;
+        }
+
+        @keyframes bounceIn {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.05); }
+            70% { transform: scale(0.9); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .success-message i {
+            font-size: 4rem;
+            color: var(--success-color);
+            margin-bottom: 1rem;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .success-message h3 {
+            color: var(--success-color);
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .alert-custom {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1060;
+            min-width: 300px;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 576px) {
+            .form-header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .form-content {
+                padding: 1rem;
+            }
+            
+            .status-options {
+                flex-direction: column;
+            }
+            
+            .navigation-buttons {
+                flex-direction: column;
+            }
+            
+            .btn-nav {
+                width: 100%;
+                margin-bottom: 0.5rem;
+            }
+
+            body {
+                background-attachment: scroll;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .form-header h1 {
+                font-size: 2rem;
+            }
+            
+            .step-icon {
+                width: 35px;
+                height: 35px;
+            }
+            
+            .step-text {
+                font-size: 0.8rem;
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNavbar">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-balance-scale me-2"></i>
+                Cabinet ASSOGBA
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#accueil">Accueil</a>
+                    </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#"
+              data-bs-toggle="modal"
+                data-bs-target="#listcourrierModal"
+              ><i class="fas fa-list me-1"></i>Liste des courriers</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./dt.html"><i class="fas fa-chart-line me-1"></i>Dashboard</a>
+            </li>
+                        <li class="nav-item">
+              <a class="nav-link" href="#"
+              
+                 data-bs-toggle="modal"
+                data-bs-target="#ajoutcourrierModal"
+
+              ><i class="fas fa-plus-circle me-1"></i>Ajouter un courrier</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-danger" href="#"><i class="fas fa-sign-out-alt me-1"></i>Déconnexion</a>
+            </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    <!-- modal1 -->
+    <div
+      class="modal fade"
+      id="ajoutcourrierModal"
+      tabindex="-1"
+      aria-labelledby="confirmajoutercourrierLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title text-dark" id="confirmajoutercourrierLabel">
+              Ajouter courrier:
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <a href="./fca.html" class="btn btn-primary w-100 mb-2">Entrant</a>
+            <a href="./fcd.html" class="btn btn-secondary w-100">Sortant</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- modal2 -->
+    <div
+      class="modal fade"
+      id="listcourrierModal"
+      tabindex="-1"
+      aria-labelledby="confirmlistcourrierLabel"
+      aria-hidden="true"
+    >
+
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title text-dark" id="confirmajoutercourrierLabel">
+             Voir les  courrier:
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <a href="./lce.html" class="btn btn-primary w-100 mb-2">Entrant</a>
+            <a href="./lcs.html" class="btn btn-secondary w-100">Sortant</a>
+          </div>
+        </div>
+      </div>
+
+
+</div>
+
+
+
+    <div class="container main-container">
+        <div class="form-container mx-auto">
+            <!-- Header -->
+            <div class="form-header">
+                <h1><i class="fas fa-envelope-open-text me-2 text-center"></i>Courrier Arrivé</h1>
+                <p>Enregistrement d'un nouveau courrier entrant</p>
+            </div>
+
+            <!-- Progress Section -->
+            <div class="progress-section">
+                <div class="custom-progress">
+                    <div class="custom-progress-bar" id="progressBar"></div>
+                </div>
+                <div class="step-indicators">
+                    <div class="step-indicator active" data-step="0">
+                        <div class="step-icon">
+                            <i class="fas fa-info-circle"></i>
+                        </div>
+                        <div class="step-text">Informations</div>
+                    </div>
+                    <div class="step-indicator" data-step="1">
+                        <div class="step-icon">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <div class="step-text">Dates</div>
+                    </div>
+                    <div class="step-indicator" data-step="2">
+                        <div class="step-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="step-text">Finalisation</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Form Content -->
+<div class="form-content">
+    <form id="multiStepForm">
+        <div class="step-content active" data-step="0">
+            <h4 class="step-title">
+                <i class="fas fa-info-circle me-2"></i>Informations de base
+            </h4>
+
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="refDossier" class="form-label text-light">
+                        <i class="fas fa-folder me-2"></i>Référence Dossier
+                    </label>
+                    <input type="text" class="form-control" id="refDossier" name="refDossier" required placeholder="Ex: DOS-2024-001">
+                    <div class="invalid-feedback">Ce champ est obligatoire</div>
+                </div>
+                <div class="col-md-6">
+                    <label for="typeCourrier" class="form-label text-light">
+                        <i class="fas fa-file-alt me-2"></i>Type de courrier
+                    </label>
+                    <select class="form-select" id="typeCourrier" name="type" required>
+                        <option value="">-- Sélectionner un type --</option>
+                        <option value="Bordereau ENR">Bordereau ENR</option>
+                        <option value="Rapport">Rapport</option>
+                        <option value="Transmission d'acte">Transmission d'acte</option>
+                        <option value="Attestation d'adjudication">Attestation d'adjudication</option>
+                        <option value="Compte rendu">Compte rendu</option>
+                        <option value="Lettre de Constitution">Lettre de Constitution</option>
+                    </select>
+                    <div class="invalid-feedback">Veuillez sélectionner un type</div>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="refCourrier" class="form-label text-light">
+                        <i class="fas fa-hashtag me-2"></i>Référence Courrier
+                    </label>
+                    <input type="text" class="form-control" id="refCourrier" name="refCourrier" required placeholder="Ex: ENR-2024-0152">
+                    <div class="invalid-feedback">Ce champ est obligatoire</div>
+                </div>
+                <div class="col-md-6">
+                    <label for="agent" class="form-label text-light">
+                        <i class="fas fa-user-tie me-2"></i>Agent en charge
+                    </label>
+                    <input type="text" class="form-control" id="agent" name="agent" required placeholder="Ex: Me Kouassi">
+                    <div class="invalid-feedback">Ce champ est obligatoire</div>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="pieceJointe" class="form-label text-light">
+                    <i class="fas fa-paperclip me-2"></i>Pièce Jointe (PDF, Word)
+                </label>
+                <input type="file" class="form-control" id="pieceJointe" name="pieceJointe" accept=".pdf,.doc,.docx">
+            </div>
+        </div>
+
+        <div class="step-content" data-step="1">
+            <h4 class="step-title">
+                <i class="fas fa-calendar-alt me-2"></i>Dates et délais
+            </h4>
+
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label for="dateDepot" class="form-label text-light">
+                        <i class="fas fa-calendar-alt me-2"></i>Date Dépôt
+                    </label>
+                    <input type="date" class="form-control" id="dateDepot" name="dateDepot">
+                </div>
+                <div class="col-md-4">
+                    <label for="dateTransmission" class="form-label text-light">
+                        <i class="fas fa-paper-plane me-2"></i>Date Transmission
+                    </label>
+                    <input type="date" class="form-control" id="dateTransmission" name="dateEnvoi">
+                </div>
+                <div class="col-md-4">
+                    <label for="dateRetour" class="form-label text-light">
+                        <i class="fas fa-calendar-check me-2"></i>Date Retour Acte
+                    </label>
+                    <input type="date" class="form-control" id="dateRetour" name="dateRetour">
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="delai" class="form-label text-light">
+                        <i class="fas fa-clock me-2"></i>Délai d'exécution
+                    </label>
+                    <div class="input-group">
+                        <input type="number" class="form-control" id="delai" name="delai" placeholder="Ex: 8" min="0">
+                        <span class="input-group-text">jour(s)</span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label for="modeEnvoi" class="form-label text-light">
+                        <i class="fas fa-shipping-fast me-2"></i>Mode d'envoi
+                    </label>
+                    <select class="form-select" id="modeEnvoi" name="mode">
+                        <option value="">-- Sélectionner un mode --</option>
+                        <option value="Portage">Portage</option>
+                        <option value="Courriel">Courriel</option>
+                        <option value="Fax">Fax</option>
+                        <option value="Courrier postal">Courrier postal</option>
+                        <option value="Autre">Autre</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="step-content" data-step="2">
+            <h4 class="step-title">
+                <i class="fas fa-check-circle me-2"></i>Finalisation
+            </h4>
+
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <label for="destinataire" class="form-label text-light">
+                        <i class="fas fa-building me-2"></i>Destinataire
+                    </label>
+                    <input type="text" class="form-control" id="destinataire" name="destination" placeholder="Ex: ENR Plateau">
+                </div>
+                <div class="col-md-6">
+                    <label for="observations" class="form-label text-light">
+                        <i class="fas fa-comment me-2"></i>Observations
+                    </label>
+                    <textarea class="form-control" id="observations" name="observation" rows="3" placeholder="Remarques particulières..."></textarea>
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <label class="form-label text-light d-block">
+                    <i class="fas fa-flag me-2"></i>Statut du courrier
+                </label>
+                <div class="status-options">
+                    <div class="status-option">
+                        <input type="radio" class="status-radio" name="etat" id="termine" value="Terminé">
+                        <label class="status-label" for="termine">
+                            <i class="fas fa-check me-2"></i>Terminé
+                        </label>
+                    </div>
+                    <div class="status-option">
+                        <input type="radio" class="status-radio" name="etat" id="encours" value="En cours">
+                        <label class="status-label" for="encours">
+                            <i class="fas fa-spinner me-2"></i>En cours
+                        </label>
+                    </div>
+                    <div class="status-option">
+                        <input type="radio" class="status-radio" name="etat" id="nontraite" value="Non traité">
+                        <label class="status-label" for="nontraite">
+                            <i class="fas fa-exclamation-triangle me-2"></i>Non traité
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="success-message" id="successMessage">
+            <i class="fas fa-check-circle"></i>
+            <h3>Courrier enregistré avec succès !</h3>
+            <p class="text-muted">Les informations ont été sauvegardées dans le système.</p>
+            <button type="button" class="btn btn-primary btn-lg mt-3" onclick="resetForm()">
+                <i class="fas fa-plus me-2"></i>Nouveau courrier
+            </button>
+        </div>
+    </form>
+</div>
+
+<div class="navigation-buttons">
+    <button type="button" class="btn btn-nav btn-prev" id="prevBtn" onclick="nextPrev(-1)">
+        <i class="fas fa-chevron-left me-2"></i>Précédent
+    </button>
+    <button type="button" class="btn btn-nav btn-next" id="nextBtn" onclick="nextPrev(1)">
+        Suivant<i class="fas fa-chevron-right ms-2"></i>
+    </button>
+</div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    let currentStep = 0;
+    const steps = document.querySelectorAll('.step-content');
+    const nextBtn = document.getElementById('nextBtn');
+    const prevBtn = document.getElementById('prevBtn');
+    const progressBar = document.getElementById('progressBar');
+    const stepIndicators = document.querySelectorAll('.step-indicator');
+    const form = document.getElementById('multiStepForm');
+
+    // 🟡 1. Sauvegarde automatique dans localStorage
+    form.addEventListener('input', function () {
+        const formData = new FormData(form);
+        const data = {};
+        formData.forEach((value, key) => {
+            data[key] = value;
+        });
+        localStorage.setItem('formulaireCourrier', JSON.stringify(data));
+    });
+
+    // 🟡 2. Pré-remplissage automatique des champs si données existent
+    window.addEventListener('DOMContentLoaded', function () {
+        const savedData = JSON.parse(localStorage.getItem('formulaireCourrier') || '{}');
+        Object.entries(savedData).forEach(([key, value]) => {
+            if (form.elements[key]) {
+                form.elements[key].value = value;
+            }
+        });
+    });
+
+    // 🔵 3. Fonction de soumission finale
+    function soumettreFormulaire() {
+    const data = JSON.parse(localStorage.getItem('formulaireCourrier') || '{}');
+    if (Object.keys(data).length === 0) {
+        alert("Aucune donnée à soumettre !");
+        return;
+    }
+
+    const historique = JSON.parse(localStorage.getItem('historiqueCourriers') || '[]');
+    data.id = Date.now(); // ID unique
+    historique.push(data);
+    localStorage.setItem('historiqueCourriers', JSON.stringify(historique));
+
+    // Nettoyage et confirmation
+    localStorage.removeItem('formulaireCourrier');
+    alert("Courrier enregistré avec succès !");
+    form.reset();
+
+    // Redirection vers lce.html après un petit délai (optionnel)
+    setTimeout(() => {
+        window.location.href = 'lcet.html';
+    }, 800); // 800ms pour laisser le temps à l'utilisateur de lire l'alerte
+}
+
+
+    // 🟢 Animation et progression visuelle
+    const originalStepIcons = [];
+    stepIndicators.forEach((indicator, index) => {
+        const icon = indicator.querySelector('i');
+        if (icon) {
+            originalStepIcons[index] = icon.className;
+        }
+    });
+
+    function showStep(n) {
+        steps.forEach(step => step.classList.remove('active'));
+        steps[n].classList.add('active');
+
+        const progress = ((n + 1) / steps.length) * 100;
+        progressBar.style.width = progress + '%';
+
+        stepIndicators.forEach((indicator, index) => {
+            indicator.classList.remove('active', 'completed');
+            const icon = indicator.querySelector('i');
+            if (icon) {
+                if (index < n) {
+                    indicator.classList.add('completed');
+                    icon.className = 'fas fa-check-circle';
+                } else if (index === n) {
+                    indicator.classList.add('active');
+                    icon.className = originalStepIcons[index];
+                } else {
+                    icon.className = originalStepIcons[index];
+                }
+            }
+        });
+
+        prevBtn.style.display = n === 0 ? 'none' : 'inline-block';
+        nextBtn.innerText = n === steps.length - 1 ? 'Soumettre' : 'Suivant';
+    }
+
+    showStep(currentStep);
+
+    nextBtn.addEventListener('click', () => {
+        if (currentStep < steps.length - 1) {
+            currentStep++;
+            showStep(currentStep);
+        } else {
+            soumettreFormulaire();
+        }
+    });
+
+    prevBtn.addEventListener('click', () => {
+        if (currentStep > 0) {
+            currentStep--;
+            showStep(currentStep);
+        }
+    });
+
+    // 🟣 Effet de scroll sur la navbar
+    window.addEventListener('scroll', function () {
+        const navbar = document.getElementById('mainNavbar');
+        if (window.scrollY > 50) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
+    });
+</script>
+
+

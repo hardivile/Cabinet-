@@ -1,0 +1,39 @@
+/* .centre{
+    background-image: url("./img/balance.webp") ;
+    background-repeat: no-repeat;
+    
+} */
+body {
+  /* background-image: url('./img/mateau.webp');
+  background-size: 90%;
+  background-position: center;
+  background-repeat: no-repeat; */
+  font-family: 'Segoe UI', sans-serif;
+  color: white;
+  min-height: 100vh; /* ✅ force la hauteur minimale */
+  background-attachment: fixed;
+
+}
+
+
+.hero {
+  background-image: url('./img/mateau.webp'); /* image de fond */
+  background-repeat: no-repeat;                /* ne pas répéter l'image */
+  background-position: center top;             /* centrer horizontalement, en haut verticalement */
+  background-size: 80%;                        /* image à 80% de la largeur */
+  min-height: 60vh;                            /* 60% de la hauteur de l’écran */
+  width: 100%;                                 /* prend toute la largeur disponible */
+}
+.service-icon {
+  font-size: 2.5rem;
+  color: #0d6efd;
+}
+html,
+body {
+  height: 100%;
+  margin: 0;
+
+}
+* {
+  box-sizing: border-box;
+}

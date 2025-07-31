@@ -1,0 +1,321 @@
+   
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding-top: 56px;
+      color: white;
+      font-family: 'Roboto', sans-serif;
+      background-image: url('./img/mateau.webp'); 
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: -1;
+    }
+
+    .navbar {
+      background-color: transparent !important;
+      box-shadow: none;
+      transition: background-color 0.3s ease;
+    }
+
+    .navbar.scrolled {
+      background-color: rgba(0, 0, 0, 0.85) !important;
+    }
+
+    .navbar .nav-link,
+    .navbar .navbar-brand {
+      color: white;
+      transition: color 0.3s ease;
+    }
+
+    .navbar .nav-link:hover,
+    .navbar .nav-link.active,
+    .navbar .navbar-brand:hover {
+      color: #ddd;
+    }
+
+    /* Hero Section - Responsive avec Bootstrap */
+    .hero-section {
+      min-height: 80vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 0 15px;
+    }
+
+    .hero-title {
+      font-weight: 700;
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero-subtitle {
+      font-size: 1.3rem;
+      margin-bottom: 0.25rem;
+      font-style: italic;
+      color: #f0e68c;
+    }
+
+    .hero-quote {
+      font-size: 1.2rem;
+      margin-bottom: 1.5rem;
+      color: #ffda44;
+    }
+
+    .btn-cta {
+      background-color: rgba(255, 255, 255, 0.85);
+      color: #000;
+      font-weight: 600;
+      padding: 0.75rem 1.8rem;
+      border-radius: 30px;
+      border: none;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn-cta:hover {
+      background-color: white;
+      color: #000;
+      text-decoration: none;
+    }
+
+    /* Mission Section */
+    .mission {
+      background-color: rgba(0, 0, 0, 0.6);
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+      text-align: center;
+    }
+
+    /* Highlight Section */
+    .highlight {
+      background-color: rgba(255, 215, 0, 0.1);
+      border: 2px solid #ffda44;
+      color: #fff;
+      font-weight: 600;
+      font-size: 1.2rem;
+      box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+      padding: 2rem;
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    /* Stats - Responsive Grid */
+    .stat-card {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 1.5rem;
+      text-align: center;
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s ease;
+      height: 100%;
+    }
+
+    .stat-card:hover {
+      transform: scale(1.05);
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .stat-card h4 {
+      font-size: 2.5rem;
+      color: #ffda44;
+      margin-bottom: 0.5rem;
+    }
+
+    /* Dashboard - Responsive Links */
+    .dashboard-link {
+      background: rgba(255, 255, 255, 0.15);
+      color: white;
+      padding: 1.2rem 1rem;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      text-decoration: none;
+      text-align: center;
+      box-shadow: 0 0 8px rgba(0,0,0,0.4);
+      transition: background-color 0.3s ease;
+      display: block;
+      height: 100%;
+    }
+
+    .dashboard-link:hover {
+      background: rgba(255, 255, 255, 0.35);
+      color: #000;
+      text-decoration: none;
+    }
+
+    /* Quote Section */
+    .quote {
+      margin: 4rem auto 2rem;
+      max-width: 700px;
+      font-style: italic;
+      font-size: 1.2rem;
+      color: #eee;
+      text-align: center;
+      padding-left: 1rem;
+      position: relative;
+    }
+
+    .quote::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 5px;
+      background-color: #ffda44;
+    }
+
+    #typewriter-text {
+      font-style: italic;
+      font-size: 1.2rem;
+      color: #eee;
+      font-weight: 400;
+      white-space: nowrap;
+    }
+
+    #typewriter-cursor {
+      display: inline-block;
+      color: #ffda44;
+      animation: blink 0.7s steps(1) infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 0; }
+      50% { opacity: 1; }
+    }
+
+    /* Media Queries - Responsive */
+    @media (max-width: 576px) {
+      .hero-title {
+        font-size: 1.8rem;
+      }
+      .hero-subtitle {
+        font-size: 1.1rem;
+      }
+      .hero-quote {
+        font-size: 1rem;
+      }
+      .stat-card h4 {
+        font-size: 2rem;
+      }
+      .dashboard-link {
+        font-size: 1rem;
+        padding: 1rem;
+      }
+      .quote {
+        font-size: 1rem;
+        margin: 2rem auto 1rem;
+      }
+      #typewriter-text {
+        font-size: 1rem;
+        white-space: normal;
+      }
+      body {
+        background-attachment: scroll;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .hero-title {
+        font-size: 2.2rem;
+      }
+      .hero-subtitle {
+        font-size: 1.2rem;
+      }
+      .mission, .highlight {
+        padding: 1.5rem;
+        margin-top: 2rem;
+      }
+      .highlight {
+        font-size: 1.1rem;
+      }
+    }
+
+    @media (min-width: 769px) and (max-width: 992px) {
+      .hero-title {
+        font-size: 2.5rem;
+      }
+    }
+   
+
+        /* Events Section - Remplace la section highlight */
+    .events-section {
+      background-color: rgba(255, 215, 0, 0.1);
+      border: 2px solid #ffda44;
+      color: #fff;
+      box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+      padding: 2rem;
+      border-radius: 10px;
+      text-align: left;
+    }
+
+    .events-section h3 {
+      color: #ffda44;
+      font-weight: 600;
+      font-size: 1.4rem;
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+
+    .event-item {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 1rem;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      border-left: 4px solid #ffda44;
+      transition: background-color 0.3s ease;
+    }
+
+    .event-item:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .event-item:last-child {
+      margin-bottom: 1.5rem;
+    }
+
+    .event-date {
+      color: #ffda44;
+      font-weight: 600;
+      font-size: 1.1rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .event-title {
+      font-weight: 500;
+      margin-bottom: 0.3rem;
+    }
+
+    .event-details {
+      font-size: 0.9rem;
+      color: #ccc;
+    }
+
+    .events-link {
+      background-color: rgba(255, 218, 68, 0.2);
+      color: #ffda44;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 500;
+      border: 1px solid rgba(255, 218, 68, 0.3);
+      transition: all 0.3s ease;
+      display: inline-block;
+    }
+
+    .events-link:hover {
+      background-color: rgba(255, 218, 68, 0.3);
+      color: #ffda44;
+      text-decoration: none;
+    }
