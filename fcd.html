@@ -740,6 +740,7 @@
                     type="text"
                     class="form-control"
                     id="refDossier"
+                    name="refDossier"
                     required
                     placeholder="Ex: DOS-2024-001"
                   />
@@ -749,7 +750,7 @@
                   <label for="typeCourrier" class="form-label text-light">
                     <i class="fas fa-file-alt me-2"></i>Type de courrier
                   </label>
-                  <select class="form-select" id="typeCourrier" required>
+                  <select class="form-select" id="typeCourrier" name="typeCourrier" required>
                     <option value="">-- Sélectionner un type --</option>
                     <option value="Bordereau ENR">Bordereau ENR</option>
                     <option value="Rapport">Rapport</option>
@@ -901,6 +902,7 @@
                   <textarea
                     class="form-control"
                     id="observations"
+                     name="observations"
                     rows="3"
                     placeholder="Remarques particulières..."
                   ></textarea>
@@ -916,7 +918,7 @@
                     <input
                       type="radio"
                       class="status-radio"
-                      name="statut"
+                      name="statut" required
                       id="termine"
                       value="Terminé"
                     />
@@ -928,7 +930,7 @@
                     <input
                       type="radio"
                       class="status-radio"
-                      name="statut"
+                      name="statut" required
                       id="encours"
                       value="En cours"
                     />
@@ -940,7 +942,7 @@
                     <input
                       type="radio"
                       class="status-radio"
-                      name="statut"
+                      name="statut" required
                       id="nontraite"
                       value="Non traité"
                     />
@@ -993,91 +995,123 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-      let currentStep = 0;
-      const steps = document.querySelectorAll(".step-content"); // Assuming .step-content is correct for your HTML structure
-      const nextBtn = document.getElementById("nextBtn");
-      const prevBtn = document.getElementById("prevBtn");
-      const progressBar = document.getElementById("progressBar");
-      const stepIndicators = document.querySelectorAll(".step-indicator");
+<script>
+  let currentStep = 0;
+  const steps = document.querySelectorAll(".step-content");
+  const progressBar = document.getElementById("progressBar");
+  const stepIndicators = document.querySelectorAll(".step-indicator");
+  const form = document.getElementById("multiStepForm");
 
-      // Store original icon classes for each step indicator
-      const originalStepIcons = [];
-      stepIndicators.forEach((indicator, index) => {
-        const icon = indicator.querySelector("i");
-        if (icon) {
-          originalStepIcons[index] = icon.className; // Store the initial class of the icon
-        }
-      });
+  /* ===============================
+     🟡 Sauvegarde auto localStorage
+  ================================ */
+  form.addEventListener("input", () => {
+    const data = {};
+    new FormData(form).forEach((value, key) => {
+      data[key] = value;
+    });
+    localStorage.setItem("formulaireCourrier", JSON.stringify(data));
+  });
 
-      // Navbar scroll effect
-      window.addEventListener("scroll", function () {
-        const navbar = document.getElementById("mainNavbar");
-        if (window.scrollY > 50) {
-          navbar.classList.add("scrolled");
-        } else {
-          navbar.classList.remove("scrolled");
-        }
-      });
+  /* ===============================
+     🟡 Pré-remplissage automatique
+  ================================ */
+  window.addEventListener("DOMContentLoaded", () => {
+    const saved = JSON.parse(
+      localStorage.getItem("formulaireCourrier") || "{}"
+    );
 
-      function showStep(n) {
-        // Hide all steps
-        steps.forEach((step) => step.classList.remove("active"));
-
-        // Show current step
-        steps[n].classList.add("active");
-
-        // Update progress bar
-        const progress = ((n + 1) / steps.length) * 100;
-        progressBar.style.width = progress + "%";
-
-        // Update step indicators
-        stepIndicators.forEach((indicator, index) => {
-          indicator.classList.remove("active", "completed");
-
-          const icon = indicator.querySelector("i");
-          if (icon) {
-            // Ensure the icon element exists
-            if (index < n) {
-              // Completed steps get a checkmark icon
-              indicator.classList.add("completed");
-              icon.className = "fas fa-check-circle";
-            } else if (index === n) {
-              // Active step gets its original icon and the 'active' class
-              indicator.classList.add("active");
-              icon.className = originalStepIcons[index]; // Use the stored original icon
-            } else {
-              // Future steps revert to their original icons
-              icon.className = originalStepIcons[index]; // Use the stored original icon
-            }
-          }
-        });
-
-        // Show/hide navigation buttons
-        prevBtn.style.display = n === 0 ? "none" : "inline-block"; // Use 'inline-block' for typical button display
-        nextBtn.innerText = n === steps.length - 1 ? "Soumettre" : "Suivant";
+    Object.entries(saved).forEach(([key, value]) => {
+      if (form.elements[key]) {
+        form.elements[key].value = value;
       }
+    });
 
-      // Show first step on page load
-      showStep(currentStep);
+    showStep(currentStep);
+  });
 
-      nextBtn.addEventListener("click", () => {
-        if (currentStep < steps.length - 1) {
-          currentStep++;
-          showStep(currentStep);
-        } else {
-          // Dernier bouton "Soumettre"
-          // Ensure your form ID is 'multiStepForm' for this to work
-          document.getElementById("multiStepForm").submit();
-        }
-      });
+  /* ===============================
+     🔵 Navigation via onclick HTML
+  ================================ */
+  function nextPrev(direction) {
+    if (direction === 1 && currentStep === steps.length - 1) {
+      soumettreFormulaire();
+      return;
+    }
 
-      prevBtn.addEventListener("click", () => {
-        if (currentStep > 0) {
-          currentStep--;
-          showStep(currentStep);
-        }
-      });
-    </script>
+    currentStep += direction;
+
+    if (currentStep < 0) currentStep = 0;
+    if (currentStep >= steps.length) currentStep = steps.length - 1;
+
+    showStep(currentStep);
+  }
+
+  /* ===============================
+     🟢 Affichage des étapes
+  ================================ */
+  const originalStepIcons = [];
+  stepIndicators.forEach((indicator, i) => {
+    const icon = indicator.querySelector("i");
+    if (icon) originalStepIcons[i] = icon.className;
+  });
+
+  function showStep(n) {
+    steps.forEach(step => step.classList.remove("active"));
+    steps[n].classList.add("active");
+
+    progressBar.style.width = ((n + 1) / steps.length) * 100 + "%";
+
+    stepIndicators.forEach((indicator, i) => {
+      indicator.classList.remove("active", "completed");
+      const icon = indicator.querySelector("i");
+
+      if (i < n) {
+        indicator.classList.add("completed");
+        icon.className = "fas fa-check-circle";
+      } else if (i === n) {
+        indicator.classList.add("active");
+        icon.className = originalStepIcons[i];
+      } else {
+        icon.className = originalStepIcons[i];
+      }
+    });
+  }
+
+  /* ===============================
+     🔴 Soumission LCST
+  ================================ */
+  function soumettreFormulaire() {
+    const data = JSON.parse(
+      localStorage.getItem("formulaireCourrier") || "{}"
+    );
+
+    if (Object.keys(data).length === 0) {
+      alert("Aucune donnée à soumettre !");
+      return;
+    }
+
+    const historique = JSON.parse(
+      localStorage.getItem("historiqueCourriersSortants") || "[]"
+    );
+
+    data.id = Date.now();
+    historique.push(data);
+
+    localStorage.setItem(
+      "historiqueCourriersSortants",
+      JSON.stringify(historique)
+    );
+
+    localStorage.removeItem("formulaireCourrier");
+
+    alert("Courrier enregistré avec succès !");
+
+    setTimeout(() => {
+      window.location.href = "lcst.html";
+    }, 800);
+  }
+</script>
+
   </body>
 </html>
