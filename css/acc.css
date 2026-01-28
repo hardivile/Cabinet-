@@ -358,3 +358,24 @@
         font-size: 0.65rem;
     }
 }
+/* Pour les très petits écrans comme Itel S23 */
+@media (max-width: 360px) {
+    .logo-img {
+        height: 30px !important;
+        width: 30px !important;
+    }
+    
+    .brand-text {
+        font-size: 0.55rem !important;
+        line-height: 1.1;
+    }
+    
+    .navbar-brand {
+        padding: 0.3rem 0 !important;
+    }
+    
+    /* Réduire l'espace entre le logo et le texte */
+    .me-2 {
+        margin-right: 0.3rem !important;
+    }
+}
