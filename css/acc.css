@@ -319,3 +319,42 @@
       color: #ffda44;
       text-decoration: none;
     }
+    /* pour le logo */
+
+    /* Logo responsive */
+.logo-img {
+    height: 60px;
+    width: 60px;
+}
+
+.brand-text {
+    font-size: 1rem;
+}
+
+/* Ajustements pour mobile */
+@media (max-width: 768px) {
+    .logo-img {
+        height: 40px;
+        width: 40px;
+    }
+    
+    .brand-text {
+        font-size: 0.75rem;
+        line-height: 1.2;
+    }
+    
+    .navbar-brand {
+        padding: 0.5rem 0;
+    }
+}
+
+@media (max-width: 576px) {
+    .logo-img {
+        height: 35px;
+        width: 35px;
+    }
+    
+    .brand-text {
+        font-size: 0.65rem;
+    }
+}
