@@ -380,4 +380,26 @@
     }
 }
 
- 
+ /* after */
+ /* 1. Correction du fond Hero Section */
+.hero-section {
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5));
+}
+
+/* 2. Correction du texte de la navbar */
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+/* 3. Amélioration responsive du logo pour petits écrans */
+@media (max-width: 576px) {
+  .brand-text span:first-child {
+    font-size: 0.65rem;
+  }
+  
+  .brand-text span:last-child {
+    font-size: 0.9rem;
+  }
+}
