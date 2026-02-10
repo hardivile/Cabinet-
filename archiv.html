@@ -3,176 +3,191 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Cabinet ASSOGBA – Accueil Collaborateurs</title>
+    <title>Archivage de courrier – Cabinet ASSOGBA</title>
     <link href="css/bootstrap.min.css" rel="stylesheet" />
     <link href="css/archiv.css" rel="stylesheet" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
-      rel="stylesheet"
-    />
-        <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Fascinate&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
   </head>
   <body>
-<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
-  <div class="container">
-    
-     <a class="navbar-brand text-warning fw-bold d-flex align-items-center" href="./index.html"> 
-       
-    
-      <img src="./image/c.png" alt="compriseur" class="logo-img me-2" />
-      <span class="brand-text">
-        <span
-          style="
-            font-family: 'Arial Black', sans-serif;
-            text-transform: uppercase;
-          "
-        >Hôtel de vente</span>
-        <span style="font-family: 'Fascinate', cursive; font-size: 1.2rem;">
-          <em>l'Abondance</em>
-        </span>
-      </span>
-    </a>
-    
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navMenu"
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    
-    <div class="collapse navbar-collapse" id="navMenu">
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item">
-          <a class="nav-link active" href="#">Accueil</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="./cone.html">Courriers</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="./cone.html">Dossiers</a>
-        </li>
-        <li class="nav-item">
-          <a class="btn btn-outline-warning  ms-2" href="./cone.html">Connexion</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
-
-    <div
-      class="main-container d-flex justify-content-center align-items-center"
-    >
-      <div class="form-container p-4">
-        <div class="form-header mb-4">
-          <h1>Archivage de courrier</h1>
-          <p>Veuillez remplir les informations ci-dessous</p>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand text-warning fw-bold d-flex align-items-center" href="./index.html"> 
+          <img src="./image/c.png" alt="Cabinet ASSOGBA" class="logo-img me-2" />
+          <span class="brand-text">
+            <span class="brand-hotel">HÔTEL DE VENTE</span>
+            <span class="brand-abondance">l'Abondance</span>
+          </span>
+        </a>
+        
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="collapse navbar-collapse" id="navMenu">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="./index.html">Accueil</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./cone.html">Courriers</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="#">Dossiers</a>
+            </li>
+            <li class="nav-item">
+              <a class="btn btn-outline-warning ms-2" href="./cone.html">Connexion</a>
+            </li>
+          </ul>
         </div>
-        <form>
-          <div class="form-content">
-<div class="row">
-              <div class="mb-3 col-md-6">
-              <label for="refDossier" class="form-label text-light d-block"
-                > <i class="fas fa-folder me-2"></i> Référence Dossier</label
-              >
-              <input
-                type="text"
-                class="form-control"
-                id="refDossier"
-                placeholder="Ex: DOS-2024-001"
-              />
-            </div>
-            <div class="mb-3 col-md-6">
-              <label for="ref" class="form-label text-light d-block"
-                ><i class="fas fa-hashtag me-2"></i>Référence du courrier</label
-              >
-              <input
-                type="text"
-                class="form-control"
-                id="ref"
-                placeholder="EX: LC-2024-0012"
-              />
-            </div>
-</div>
-            <div class="mb-3">
-              <label for="objet" class="form-label text-light d-block"
-                >Objet du courrier</label
-              >
-              <input
-                type="text"
-                class="form-control"
-                id="objet"
-                placeholder="Ex: Transmission de pièces..."
-              />
-            </div>
-            <div class="mb-3">
-              <label for="expediteur" class="form-label text-light d-block"
-                >Expéditeur</label
-              >
-              <input
-                type="text"
-                class="form-control"
-                id="expediteur"
-                placeholder="Ex: Direction Générale"
-              />
-            </div>
-            <div class="mb-3">
-              <label for="destinataire" class="form-label text-light d-block"
-                >Destinataire</label
-              >
-              <input
-                type="text"
-                class="form-control"
-                id="destinataire"
-                placeholder="Ex: Service Juridique"
-              />
-            </div>
-            <div class="row">
-              <div class="col-md-6 mb-3">
-                <label for="dateReception" class="form-label text-light d-block"
-                  >Date de réception</label
-                >
-                <input type="date" class="form-control" id="dateReception" />
-              </div>
-              <div class="col-md-6 mb-3">
-                <label for="dateArchivage" class="form-label text-light d-block"
-                  >Date d'archivage</label
-                >
-                <input type="date" class="form-control" id="dateArchivage" />
-              </div>
-            </div>
-            <!-- <div class="mb-3">
-          <label for="support" class="form-label text-light d-block">Support</label>
-          <select id="support" class="form-select">
-            <option selected disabled>Choisir...</option>
-            <option>Physique</option>
-            <option>Numérique</option>
-          </select>
-        </div> -->
-            <div class="mb-3">
-              <label for="observations" class="form-label text-light d-block"
-                >Observations</label
-              >
-              <textarea
-                class="form-control"
-                id="observations"
-                rows="3"
-                placeholder="Commentaires supplémentaires..."
-              ></textarea>
-            </div>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-container">
+      <div class="container">
+        <div class="form-container">
+          <div class="form-header text-center mb-4">
+            <h1 class="text-warning">
+              <i class="fas fa-archive me-2"></i>Archivage de courrier
+            </h1>
+            <p class="text-light">Veuillez remplir les informations ci-dessous</p>
           </div>
-          <div class="navigation-buttons">
-            <button type="reset" class="btn btn-prev btn-nav">Annuler</button>
-            <button type="submit" class="btn btn-submit btn-nav">
-              Archiver
-            </button>
-          </div>
-        </form>
+          
+          <form id="archiveForm">
+            <div class="form-content">
+              <!-- Ligne 1: Références -->
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="refDossier" class="form-label text-light">
+                    <i class="fas fa-folder me-2"></i>Référence Dossier
+                  </label>
+                  <input type="text" class="form-control" id="refDossier" placeholder="Ex: DOS-2024-001" required />
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="ref" class="form-label text-light">
+                    <i class="fas fa-hashtag me-2"></i>Référence du courrier
+                  </label>
+                  <input type="text" class="form-control" id="ref" placeholder="Ex: LC-2024-0012" required />
+                </div>
+              </div>
+
+              <!-- Objet -->
+              <div class="mb-3">
+                <label for="objet" class="form-label text-light">
+                  <i class="fas fa-file-alt me-2"></i>Objet du courrier
+                </label>
+                <input type="text" class="form-control" id="objet" placeholder="Ex: Transmission de pièces..." required />
+              </div>
+
+              <!-- Expéditeur et Destinataire -->
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="expediteur" class="form-label text-light">
+                    <i class="fas fa-user me-2"></i>Expéditeur
+                  </label>
+                  <input type="text" class="form-control" id="expediteur" placeholder="Ex: Direction Générale" required />
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="destinataire" class="form-label text-light">
+                    <i class="fas fa-user-check me-2"></i>Destinataire
+                  </label>
+                  <input type="text" class="form-control" id="destinataire" placeholder="Ex: Service Juridique" required />
+                </div>
+              </div>
+
+              <!-- Dates -->
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="dateReception" class="form-label text-light">
+                    <i class="fas fa-calendar-alt me-2"></i>Date de réception
+                  </label>
+                  <input type="date" class="form-control" id="dateReception" required />
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="dateArchivage" class="form-label text-light">
+                    <i class="fas fa-calendar-check me-2"></i>Date d'archivage
+                  </label>
+                  <input type="date" class="form-control" id="dateArchivage" required />
+                </div>
+              </div>
+
+              <!-- Observations -->
+              <div class="mb-3">
+                <label for="observations" class="form-label text-light">
+                  <i class="fas fa-comment me-2"></i>Observations
+                </label>
+                <textarea class="form-control" id="observations" rows="3" placeholder="Commentaires supplémentaires..."></textarea>
+              </div>
+            </div>
+
+            <!-- Boutons -->
+            <div class="navigation-buttons d-flex justify-content-between mt-4">
+              <button type="button" class="btn btn-prev btn-nav" onclick="window.location.href='./index.html'">
+                <i class="fas fa-times me-2"></i>Annuler
+              </button>
+              <button type="submit" class="btn btn-submit btn-nav">
+                <i class="fas fa-save me-2"></i>Archiver
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
+
+    <!-- Footer -->
+    <footer class="text-center py-3 mt-5">
+      <p class="text-light mb-0">&copy; 2025 Cabinet ASSOGBA. Tous droits réservés.</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script>
+      // Navbar scroll effect
+      window.addEventListener("scroll", () => {
+        const navbar = document.querySelector(".navbar");
+        navbar.classList.toggle("scrolled", window.scrollY > 50);
+      });
+
+      // Form validation
+      document.getElementById('archiveForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Vérification des champs
+        const refDossier = document.getElementById('refDossier').value;
+        const refCourrier = document.getElementById('ref').value;
+        const objet = document.getElementById('objet').value;
+        
+        if (!refDossier || !refCourrier || !objet) {
+          alert('Veuillez remplir tous les champs obligatoires (*)');
+          return;
+        }
+        
+        // Confirmation
+        if (confirm('Voulez-vous archiver ce courrier ?\n\nRéférence: ' + refCourrier)) {
+          // Animation de succès
+          const submitBtn = this.querySelector('button[type="submit"]');
+          submitBtn.innerHTML = '<i class="fas fa-check me-2"></i>Archivé !';
+          submitBtn.classList.add('btn-success');
+          submitBtn.disabled = true;
+          
+          setTimeout(() => {
+            alert('✅ Courrier archivé avec succès !');
+            this.reset();
+            submitBtn.innerHTML = '<i class="fas fa-save me-2"></i>Archiver';
+            submitBtn.classList.remove('btn-success');
+            submitBtn.disabled = false;
+          }, 1000);
+        }
+      });
+
+      // Auto-fill date d'archivage avec la date du jour
+      document.addEventListener('DOMContentLoaded', function() {
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('dateArchivage').value = today;
+      });
+    </script>
   </body>
 </html>
